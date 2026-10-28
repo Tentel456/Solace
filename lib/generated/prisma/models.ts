@@ -8,4 +8,10 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/User'
+export type * from './models/Lecture'
+export type * from './models/TranscriptSegment'
+export type * from './models/LectureSummary'
+export type * from './models/LectureSection'
+export type * from './models/ProcessingJob'
 export type * from './commonInputTypes'

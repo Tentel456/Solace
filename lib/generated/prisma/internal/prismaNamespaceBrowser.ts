@@ -51,7 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-
+  User: 'User',
+  Lecture: 'Lecture',
+  TranscriptSegment: 'TranscriptSegment',
+  LectureSummary: 'LectureSummary',
+  LectureSection: 'LectureSection',
+  ProcessingJob: 'ProcessingJob'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,4 +73,115 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const LectureScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  originalName: 'originalName',
+  storagePath: 'storagePath',
+  sourceUrl: 'sourceUrl',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  durationMs: 'durationMs',
+  status: 'status',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LectureScalarFieldEnum = (typeof LectureScalarFieldEnum)[keyof typeof LectureScalarFieldEnum]
+
+
+export const TranscriptSegmentScalarFieldEnum = {
+  id: 'id',
+  lectureId: 'lectureId',
+  position: 'position',
+  startMs: 'startMs',
+  endMs: 'endMs',
+  text: 'text',
+  createdAt: 'createdAt'
+} as const
+
+export type TranscriptSegmentScalarFieldEnum = (typeof TranscriptSegmentScalarFieldEnum)[keyof typeof TranscriptSegmentScalarFieldEnum]
+
+
+export const LectureSummaryScalarFieldEnum = {
+  id: 'id',
+  lectureId: 'lectureId',
+  content: 'content',
+  model: 'model',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LectureSummaryScalarFieldEnum = (typeof LectureSummaryScalarFieldEnum)[keyof typeof LectureSummaryScalarFieldEnum]
+
+
+export const LectureSectionScalarFieldEnum = {
+  id: 'id',
+  lectureId: 'lectureId',
+  position: 'position',
+  title: 'title',
+  description: 'description',
+  startMs: 'startMs',
+  endMs: 'endMs',
+  createdAt: 'createdAt'
+} as const
+
+export type LectureSectionScalarFieldEnum = (typeof LectureSectionScalarFieldEnum)[keyof typeof LectureSectionScalarFieldEnum]
+
+
+export const ProcessingJobScalarFieldEnum = {
+  id: 'id',
+  lectureId: 'lectureId',
+  type: 'type',
+  status: 'status',
+  progress: 'progress',
+  attempts: 'attempts',
+  errorMessage: 'errorMessage',
+  startedAt: 'startedAt',
+  finishedAt: 'finishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProcessingJobScalarFieldEnum = (typeof ProcessingJobScalarFieldEnum)[keyof typeof ProcessingJobScalarFieldEnum]
+
+
+export const SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+} as const
+
+export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

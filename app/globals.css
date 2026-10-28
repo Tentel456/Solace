@@ -128,3 +128,26 @@
     @apply font-sans;
   }
 }
+
+
+@keyframes solace-segment-enter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes solace-segment-enter {
+    from,
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

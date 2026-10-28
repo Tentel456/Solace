@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client"
   output   = "../lib/generated/prisma"
@@ -5,4 +6,129 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+enum LectureStatus {
+  UPLOADING
+  PROCESSING
+  READY
+  FAILED
+}
+
+enum JobType {
+  TRANSCRIBE
+  SUMMARIZE
+  GENERATE_EMBEDDINGS
+}
+
+enum JobStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+}
+
+model User {
+  id        String   @id @db.Uuid
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+
+  lectures Lecture[]
+
+  @@map("users")
+}
+
+model Lecture {
+  id          String        @id @default(uuid()) @db.Uuid
+  userId      String        @db.Uuid
+  title       String
+  description String?
+  originalName String?
+  storagePath String?
+  sourceUrl   String?
+  mimeType    String?
+  sizeBytes   BigInt?
+  durationMs  Int?
+  status      LectureStatus @default(UPLOADING)
+  errorMessage String?
+  createdAt   DateTime      @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime      @updatedAt @db.Timestamptz(6)
+
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  segments     TranscriptSegment[]
+  summary      LectureSummary?
+  sections     LectureSection[]
+  jobs         ProcessingJob[]
+
+  @@index([userId, createdAt])
+  @@index([status])
+  @@map("lectures")
+}
+
+model TranscriptSegment {
+  id         String   @id @default(uuid()) @db.Uuid
+  lectureId  String   @db.Uuid
+  position   Int
+  startMs    Int
+  endMs      Int
+  text       String
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+
+  lecture Lecture @relation(fields: [lectureId], references: [id], onDelete: Cascade)
+
+  @@unique([lectureId, position])
+  @@index([lectureId, startMs])
+  @@map("transcript_segments")
+}
+
+model LectureSummary {
+  id        String   @id @default(uuid()) @db.Uuid
+  lectureId String   @unique @db.Uuid
+  content   String   @db.Text
+  model     String?
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+
+  lecture Lecture @relation(fields: [lectureId], references: [id], onDelete: Cascade)
+
+  @@map("lecture_summaries")
+}
+
+model LectureSection {
+  id          String   @id @default(uuid()) @db.Uuid
+  lectureId   String   @db.Uuid
+  position    Int
+  title       String
+  description String?
+  startMs     Int
+  endMs       Int
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+
+  lecture Lecture @relation(fields: [lectureId], references: [id], onDelete: Cascade)
+
+  @@unique([lectureId, position])
+  @@index([lectureId, startMs])
+  @@map("lecture_sections")
+}
+
+model ProcessingJob {
+  id          String    @id @default(uuid()) @db.Uuid
+  lectureId   String    @db.Uuid
+  type        JobType
+  status      JobStatus @default(PENDING)
+  progress    Int       @default(0)
+  attempts    Int       @default(0)
+  errorMessage String?
+  startedAt   DateTime? @db.Timestamptz(6)
+  finishedAt  DateTime? @db.Timestamptz(6)
+  createdAt   DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @db.Timestamptz(6)
+
+  lecture Lecture @relation(fields: [lectureId], references: [id], onDelete: Cascade)
+
+  @@index([status, createdAt])
+  @@index([lectureId, type])
+  @@map("processing_jobs")
 }

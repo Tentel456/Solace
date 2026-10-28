@@ -9,7 +9,30 @@
 * 🟢 You can import this file directly.
 */
 
+export const LectureStatus = {
+  UPLOADING: 'UPLOADING',
+  PROCESSING: 'PROCESSING',
+  READY: 'READY',
+  FAILED: 'FAILED'
+} as const
+
+export type LectureStatus = (typeof LectureStatus)[keyof typeof LectureStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const JobType = {
+  TRANSCRIBE: 'TRANSCRIBE',
+  SUMMARIZE: 'SUMMARIZE',
+  GENERATE_EMBEDDINGS: 'GENERATE_EMBEDDINGS'
+} as const
+
+export type JobType = (typeof JobType)[keyof typeof JobType]
+
+
+export const JobStatus = {
+  PENDING: 'PENDING',
+  RUNNING: 'RUNNING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+} as const
+
+export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]
