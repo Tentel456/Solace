@@ -33,7 +33,7 @@ export function DesktopNav() {
       <NavigationMenuList className="gap-1">
         <NavigationMenuItem>
           <NavigationMenuTrigger className={triggerClassName}>
-            Product
+            Продукт
           </NavigationMenuTrigger>
 
           <NavigationMenuContent className={menuClassName}>
@@ -55,14 +55,14 @@ export function DesktopNav() {
 
               <div className="flex flex-col justify-end rounded-lg border border-white/[0.06] bg-white/[0.02] p-3">
                 <p className="text-sm text-zinc-500">
-                  Interested?
+                  Сделано
                 </p>
 
                 <a
                   className="mt-1 w-fit text-sm font-medium text-zinc-300 transition-colors hover:text-white"
                   href="#"
                 >
-                  Schedule a demo
+                  Fantasy Builders
                 </a>
               </div>
             </div>
@@ -71,7 +71,7 @@ export function DesktopNav() {
 
         <NavigationMenuItem>
           <NavigationMenuTrigger className={triggerClassName}>
-            Company
+            Сервисы
           </NavigationMenuTrigger>
 
           <NavigationMenuContent className={menuClassName}>
@@ -113,7 +113,7 @@ export function DesktopNav() {
               className="rounded-md px-4 py-2 text-sm text-zinc-400 transition-colors duration-200 hover:bg-white/[0.04] hover:text-white focus:bg-white/[0.04] focus:text-white"
               href="#"
             >
-              Pricing
+              Документация
             </a>
           </NavigationMenuLink>
         </NavigationMenuItem>
