@@ -17,19 +17,14 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FriendAvatar } from "@/components/friends/friend-avatar";
-import {
-  mockFriends,
-  mockRequests,
-  mockSuggestions,
-  type MockFriend,
-} from "@/components/friends/mock-data";
+
 
 const secondaryButton = "inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.025] px-3 text-xs font-medium text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 disabled:opacity-50";
 const primaryButton = "inline-flex h-9 items-center justify-center gap-2 rounded-lg bg-zinc-100 px-4 text-xs font-medium text-zinc-950 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950";
 
 type Filter = "all" | "online" | "requests" | "discover";
 
-function FriendCard({ friend, actions }: { friend: MockFriend; actions?: ReactNode }) {
+function FriendCard({ friend, actions }: { friend: Friend; actions?: ReactNode }) {
   return (
     <article className="group flex flex-col rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 transition-colors hover:border-white/[0.15] hover:bg-white/[0.035]">
       <div className="flex items-start justify-between gap-3">
@@ -68,8 +63,8 @@ function FriendCard({ friend, actions }: { friend: MockFriend; actions?: ReactNo
 }
 
 export function Friends() {
-  const [friends, setFriends] = useState(mockFriends);
-  const [requests, setRequests] = useState(mockRequests);
+  const [friends, setFriends] = useState(Friends);
+  const [requests, setRequests] = useState(Requests);
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
   const [pending, setPending] = useState<string[]>([]);
@@ -81,18 +76,18 @@ export function Friends() {
     { id: "all", label: "Все друзья", count: friends.length },
     { id: "online", label: "В сети", count: onlineCount },
     { id: "requests", label: "Заявки", count: requests.length },
-    { id: "discover", label: "Найти друзей", count: mockSuggestions.length },
+    { id: "discover", label: "Найти друзей", count: Suggestions.length },
   ];
-  const people = filter === "requests" ? requests : filter === "discover" ? mockSuggestions : filter === "online" ? friends.filter((friend) => friend.online) : friends;
+  const people = filter === "requests" ? requests : filter === "discover" ? Suggestions : filter === "online" ? friends.filter((friend) => friend.online) : friends;
   const search = query.trim().toLocaleLowerCase("ru");
   const visiblePeople = people.filter((friend) => `${friend.name} ${friend.username} ${friend.university} ${friend.interests.join(" ")}`.toLocaleLowerCase("ru").includes(search));
 
-  function sendRequest(friend: MockFriend) {
+  function sendRequest(friend: Friend) {
     setPending((current) => [...current, friend.username]);
     setNotice(`Заявка для ${friend.name} отправлена в демо-режиме.`);
   }
 
-  function acceptRequest(friend: MockFriend) {
+  function acceptRequest(friend: Friend) {
     setFriends((current) => [...current, { ...friend, activity: "Теперь вы друзья. Самое время учиться вместе!" }]);
     setRequests((current) => current.filter((request) => request.username !== friend.username));
     setNotice(`${friend.name} теперь в вашем списке друзей.`);
@@ -177,7 +172,7 @@ export function Friends() {
           <section className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5">
             <div className="flex items-center gap-2 text-xs font-medium text-zinc-200"><Sparkles className="size-3.5 text-zinc-500" aria-hidden="true" /><h2>Возможно, вы знакомы</h2></div>
             <div className="mt-5 space-y-5">
-              {mockSuggestions.map((friend) => (
+              {Suggestions.map((friend) => (
                 <div key={friend.username} className="flex items-center gap-2.5">
                   <Link href={`/friends/${friend.username}`} className="shrink-0 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-white/40"><FriendAvatar friend={friend} className="size-9 rounded-xl text-[10px]" /></Link>
                   <div className="min-w-0 flex-1">
