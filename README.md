@@ -1,16 +1,3 @@
-DATABASE_URL="postgresql://postgres.ogdattzgxvizmavvtmut:A427785a*****@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
-DIRECT_URL="postgresql://postgres.ogdattzgxvizmavvtmut:A427785a*****@aws-0-us-east-1.pooler.supabase.com:5432/postgres"
-
-NEXT_PUBLIC_SUPABASE_URL="https://ogdattzgxvizmavvtmut.supabase.co"
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="sb_publishable_KX-KRxd6Yh_38rinhkUWHw_AYzAdwkP"
-
-OPENAI_API_KEY="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"
-SUPABASE_SECRET_KEY="sb_secret_K1OC5_cKUH1TjvQo7ttaqA_dPC60tKY"
-
-TRANSCRIPTION_PROVIDER="local"
-WHISPER_MODEL="small"
-WHISPER_LANGUAGE=""
-
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
