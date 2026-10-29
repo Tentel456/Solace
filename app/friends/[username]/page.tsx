@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function FriendProfilePage({ params }: Props) {
   const { username } = await params;
-  const friend = allMockPeople.find((person) => person.username === username);
+  const friend = allPeople.find((person) => person.username === username);
 
   if (!friend) notFound();
 
